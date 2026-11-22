@@ -12,6 +12,10 @@ The game begins immediately. Guide the player through two alternating worlds, us
 
 There is no timer, pause mode, or move counter.
 
+## Portfolio
+
+Featured on [zipgirl.github.io](https://zipgirl.github.io/projects/).
+
 ## Development
 
 Requires Node.js 20 or newer.

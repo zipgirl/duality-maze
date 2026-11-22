@@ -19,6 +19,14 @@ export function Game() {
   const [world, setWorld] = useState(0);
   const [mobile, setMobile] = useState(false);
   const [restartPulse, setRestartPulse] = useState(0);
+  const [theme, setTheme] = useState<"dark" | "light">(() =>
+    localStorage.getItem("duality-maze-theme") === "light" ? "light" : "dark"
+  );
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("duality-maze-theme", theme);
+  }, [theme]);
 
   const restart = useCallback(() => {
     stateRef.current = { player:{x:20,y:20}, world:0, won:false, anim:null, activeTrigger:-1 };
@@ -103,7 +111,19 @@ export function Game() {
   const press=(direction:Direction)=>{heldRef.current.add(direction);move(direction);};
   const release=(direction:Direction)=>heldRef.current.delete(direction);
   return <main className="page-shell">
-    <header className="topbar"><a className="wordmark" href="#" aria-label="Duality Maze home">DUALITY<span> / </span>MAZE</a><button className="restart-button" onClick={restart}><span aria-hidden="true">↻</span> Restart</button></header>
+    <header className="topbar">
+      <a className="back-link" href="https://zipgirl.github.io/projects/">← volver a proyectos</a>
+      <a className="brand" href="https://zipgirl.github.io/" aria-label="Inicio de ZipGirl">
+        <picture>
+          <img className="logo-dark" src="./images/zipgirl-dark.webp" alt="ZipGirl" />
+          <img className="logo-light" src="./images/zipgirl-light.webp" alt="ZipGirl" />
+        </picture>
+      </a>
+      <div className="header-actions">
+        <button className="theme-toggle" type="button" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}>{theme === "dark" ? "☼" : "☾"}</button>
+        <button className="restart-button" onClick={restart}><span aria-hidden="true">↻</span> Restart</button>
+      </div>
+    </header>
     <section className="game-layout">
       <div className="intro"><p className="eyebrow">TWO WORLDS · ONE WAY OUT</p><h1>Find your way<br/><em>through duality.</em></h1><p className="description">Cross between two mirrored realities. Every golden mark shifts the maze beneath your feet.</p><div className="world-key"><span className={world===0?"active rose":"rose"}></span><span>Rose world</span><span className={world===1?"active cyan":"cyan"}></span><span>Azure world</span></div></div>
       <div className="play-area"><div className={"board-frame "+(world===0?"rose-frame":"cyan-frame")}><canvas ref={canvasRef} width={512} height={512} aria-label="Duality Maze game board"/>{won&&<div className="victory-overlay"><div className="victory-card"><span className="victory-spark">✦</span><p className="eyebrow">THE WORLDS ARE YOURS</p><h2>You made it.</h2><p>Two realities. One impossible maze. You found the way through.</p><button onClick={restart}>Play again <span>↗</span></button></div></div>}</div><p className="board-caption"><span>{world===0?"01 — ROSE REALITY":"02 — AZURE REALITY"}</span><span>512 × 512 FIELD</span></p></div>

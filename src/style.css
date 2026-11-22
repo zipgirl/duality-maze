@@ -82,11 +82,11 @@ html[data-theme="light"] .brand img.logo-light { display: block; }
 @media(max-width:760px) {
   .page-shell { padding: 20px 18px calc(28px + env(safe-area-inset-bottom)); }
   .topbar { grid-template-columns: 1fr auto auto; gap: 8px; padding-bottom: 13px; }
-  .back-link { font-size: 8px; letter-spacing: .04em; }
-  .brand { width: 98px; height: 36px; }
-  .header-actions { gap: 6px; }
-  .theme-toggle { width: 32px; height: 32px; }
-  .restart-button { padding: 7px 9px; font-size: 10px; }
+  .back-link { font-size: 7px; letter-spacing: 0; }
+  .brand { width: 84px; height: 32px; }
+  .header-actions { gap: 5px; }
+  .theme-toggle { width: 30px; height: 30px; }
+  .restart-button { padding: 6px 8px; font-size: 10px; }
   .game-layout { grid-template-columns: 1fr; gap: 22px; padding: 32px 0 18px; }
   .intro { max-width: none; text-align: center; }
   .intro .eyebrow { margin-bottom: 10px; }
